@@ -385,7 +385,7 @@ if uploaded_file is not None:
 else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input.')
     
-    st.dataframe(df.style.highlight_max(color='black',axis=0),height=10,use_container_width=True)
+    st.dataframe(df.style.highlight_max(color='yellow',axis=0),height=10,use_container_width=True)
 # Perform prediction using the predict_employee_attrition function
 prediction, prediction_proba = predict_employee_attrition(df)
 
@@ -399,7 +399,7 @@ st.subheader('**Prediction**')
 emp_att = np.array(['No', 'Yes'])
 
 #st.write( emp_att[prediction])
-st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='black',axis=0),height=10,use_container_width=True)
+st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='yellow',axis=0),height=10,use_container_width=True)
 
 
 # Display the prediction probabilities on a bar chart
@@ -434,6 +434,6 @@ proba_df_styled = proba_df_formatted.style\
 # Display the styled DataFrame
 #st.dataframe(proba_df_styled, height=10, use_container_width=True)
 #st.write(prediction_proba)
-st.dataframe(proba_df_formatted.style.highlight_max(color='black',axis=0),height=10,use_container_width=True)
+st.dataframe(proba_df_formatted.style.highlight_max(color='yellow',axis=0),height=10,use_container_width=True)
 
 

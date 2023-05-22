@@ -80,7 +80,7 @@ fig = px.scatter(
     color="JobRole",
     hover_name="JobRole",
     log_x=True,
-    size_max=45
+    size_max=25
 )
 
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])

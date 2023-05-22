@@ -4,8 +4,5 @@ pickle
 streamlit
 sklearn
 matplotlib.pyplot
-import altair
-import plotly
-import plotly
-import plotly
-
+altair
+plotly

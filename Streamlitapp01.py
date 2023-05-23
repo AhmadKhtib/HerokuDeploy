@@ -239,7 +239,7 @@ get_chart()
 
 st.sidebar.header('User Input Features ')
 st.sidebar.markdown("""
-[Example CSV input file ] (https://drive.google.com/file/d/1oseesGmxCBK8YwO1IkNXIaBbKGfO0Vlz/view?usp=share_link)
+[Example CSV input file ] (https://raw.githubusercontent.com/AhmadKhtib/HerokuDeploy/main/imb_example.csv)
 
 """)
 

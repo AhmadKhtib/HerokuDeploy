@@ -1,0 +1,2 @@
+﻿Age,BusinessTravel,DailyRate,Department,DistanceFromHome,Education,EducationField,EmployeeNumber,EnvironmentSatisfaction,Gender,JobInvolvement,JobLevel,JobRole,JobSatisfaction,MaritalStatus,MonthlyIncome,MonthlyRate,NumCompaniesWorked,OverTime,PerformanceRating,RelationshipSatisfaction,StockOptionLevel,TrainingTimesLastYear,YearsInCurrentRole,YearsSinceLastPromotion,YearsWithCurrManager
+41,Travel_Rarely,1102,Sales,1,College,Life Sciences,1,Medium,Female,High,Junior,Sales Executive,Very High,Single,5993,19479,8,Yes,Excellent,Low,No stock options granted,0,4,0,5

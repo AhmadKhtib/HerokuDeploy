@@ -10,8 +10,10 @@ import altair as alt
 import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
+st.set_page_config(layout="wide")
 
 st.title("IBM Employee Attrition App")
+
 st.write(""" 
 
 This app predicts the **Employee Attrition**

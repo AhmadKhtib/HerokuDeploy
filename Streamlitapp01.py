@@ -354,21 +354,6 @@ def predict_employee_attrition(df):
     # Load the trained classifier model
     load_clf = pickle.load(open('ibm.pkl', 'rb'))
 
-    # Make necessary data type conversions for prediction
-	
-    #df.loc[:, 'Age'] = df['Age'].astype(int)
-    #df.loc[:, 'DistanceFromHome'] = df['DistanceFromHome'].astype(int) 
-    #df.loc[:, 'DistanceFromHome']=pd.to_numeric(df['DistanceFromHome'], errors='coerce')
-    #df.loc[:, 'Age']=pd.to_numeric(df['Age'])
-    
-    #df.loc[:, 'MonthlyIncome']=pd.to_numeric(df['MonthlyIncome'], errors='coerce')
-   # df.loc[:, 'YearsInCurrentRole']=pd.to_numeric(df['YearsInCurrentRole'], errors='coerce')
-    
-    #df.loc[:, 'JobInvolvement'] = df['JobInvolvement'].astype(int)
-    #df.loc[:, 'JobSatisfaction'] = df['JobSatisfaction'].astype(int)
-    #df.loc[:, 'PerformanceRating'] = df['PerformanceRating'].astype(int)
-    #df.loc[:, 'RelationshipSatisfaction'] = df['RelationshipSatisfaction'].astype(int)
-    #df.loc[:, 'JobLevel'] = df['JobLevel'].astype(int)
 
     # Make predictions
     prediction = load_clf.predict(df)
@@ -379,13 +364,13 @@ def predict_employee_attrition(df):
 st.subheader('User Input features')
 if uploaded_file is not None:
     
-    st.dataframe(df.style.highlight_max(axis=0),use_container_width=True)
+    st.dataframe(df.style.highlight_max(color='red',axis=0),use_container_width=True)
 
 	
 else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input.')
     
-    st.dataframe(df.style.highlight_max(color='yellow',axis=0),height=10,use_container_width=True)
+    st.dataframe(df.style.highlight_max(color='red',axis=0),height=10,use_container_width=True)
 # Perform prediction using the predict_employee_attrition function
 prediction, prediction_proba = predict_employee_attrition(df)
 
@@ -399,7 +384,7 @@ st.subheader('**Prediction**')
 emp_att = np.array(['No', 'Yes'])
 
 #st.write( emp_att[prediction])
-st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='yellow',axis=0),height=10,use_container_width=True)
+st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='red',axis=0),height=10,use_container_width=True)
 
 
 # Display the prediction probabilities on a bar chart

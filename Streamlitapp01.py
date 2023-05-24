@@ -10,8 +10,7 @@ import altair as alt
 import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
-st.set_page_config(layout="wide")
-
+st.set_page_config(page_title='IBM Employee Attrition', page_icon='👨‍💻👩‍💻', layout="centered", initial_sidebar_state="auto")
 st.title("IBM Employee Attrition App")
 
 st.write(""" 

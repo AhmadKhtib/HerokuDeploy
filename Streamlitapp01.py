@@ -13,7 +13,6 @@ import plotly.graph_objects as go
 
 st.title("IBM Employee Attrition App")
 st.write(""" 
-# IBM Employee Attrition App
 
 This app predicts the **Employee Attrition**
 

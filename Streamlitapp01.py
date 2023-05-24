@@ -11,6 +11,7 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 
+st.beta_set_page_title(EDA&classification web app)
 
 st.write(""" 
 # IBM Employee Attrition App

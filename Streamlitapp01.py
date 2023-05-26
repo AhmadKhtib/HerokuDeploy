@@ -223,14 +223,14 @@ def get_chart():
 
     hist_data = [x2, x3]
 
-    group_labels = ['Monthly Income', 'EmployeeNumber']
+    group_labels = ['Monthly Income', 'Employee Number']
     colors = ['#A56CC1', '#A6ACEC', '#63F5EF']
 
     # Create distplot with curve_type set to 'normal'
     fig = ff.create_distplot(hist_data, group_labels, colors=colors, bin_size=100, show_rug=False)
 
     # Add title
-    fig.update_layout(title_text='Hist and Curve Plot')
+    fig.update_layout(title_text='Distribution for the Monthly Income and Employee Number ')
 
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
     with tab1:

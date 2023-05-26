@@ -230,7 +230,7 @@ def get_chart():
     fig = ff.create_distplot(hist_data, group_labels, colors=colors, bin_size=100, show_rug=False)
 
     # Add title
-    fig.update_layout(title_text='Distribution for the Monthly Income and Employee Number ')
+    fig.update_layout(title_text='Distribution for the Monthly Income and Employees Number/(Count) ')
 
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
     with tab1:

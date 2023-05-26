@@ -471,7 +471,6 @@ def get_download_link(df):
 st.subheader('User Input features')
 download_icon = "<i class='fas fa-download'></i>"
 download_link = get_download_link(no_encode_df)
-st.markdown(f"{download_icon} 📥({download_link})", unsafe_allow_html=True)
 if uploaded_file is not None:
     df_input = pd.read_csv(uploaded_file)
     st.dataframe(df_input.style.highlight_max(color='red', axis=0), use_container_width=True)
@@ -481,9 +480,7 @@ if uploaded_file is not None:
 else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input.')
     st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_container_width=True)
-    fig = plt_attribute_correlation(x_axis_aspect1, y_axis_aspect2, color_dim)
-    st.plotly_chart(fig)
-
+st.markdown(f"{download_icon} 📥({download_link})", unsafe_allow_html=True)
 
 # Perform prediction using the predict_employee_attrition function
 prediction, prediction_proba = predict_employee_attrition(df)

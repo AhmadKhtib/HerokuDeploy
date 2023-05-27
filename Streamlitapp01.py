@@ -254,8 +254,8 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
                      color_discrete_sequence=color_discrete_sequence)
     
     fig.update_layout(
-        plot_bgcolor='#0e1117',
-        paper_bgcolor='#0e1117',
+        plot_bgcolor='white',
+        paper_bgcolor='white',
         font=dict(color='white', size=18),
         xaxis=dict(title=dict(text=aspect1)),
         yaxis=dict(title=dict(text=aspect2)),

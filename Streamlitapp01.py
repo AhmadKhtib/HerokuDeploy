@@ -266,6 +266,7 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
         autosize=False,
         dragmode='zoom',
         hovermode='closest',
+        hoverlabel=dict(bgcolor='lime'),
         width=700,
         height=600
     )

@@ -260,10 +260,10 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
         xaxis=dict(title=dict(text=aspect1)),
         yaxis=dict(title=dict(text=aspect2)),
         showlegend=True,
-        autosize=True,
+        autosize=False,
         dragmode='zoom',
         hovermode='closest',
-        width=800,
+        width=700,
         height=600
     )
     

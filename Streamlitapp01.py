@@ -223,14 +223,14 @@ def get_chart():
 
     hist_data = [x2, x3]
 
-    group_labels = ['Monthly Income', 'Employee Number']
+    group_labels = ['Monthly Income', 'EmployeeNumber']
     colors = ['#A56CC1', '#A6ACEC', '#63F5EF']
 
     # Create distplot with curve_type set to 'normal'
     fig = ff.create_distplot(hist_data, group_labels, colors=colors, bin_size=100, show_rug=False)
 
     # Add title
-    fig.update_layout(title_text='Distribution for the Monthly Income and Employees Number/(Count) ')
+    fig.update_layout(title_text='Hist and Curve Plot')
 
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
     with tab1:
@@ -247,11 +247,12 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
     df_plot = df_data_filtered
     trendline = "ols" if corr_type == "Regression Plot (Recommended)" else None
     color_discrete_sequence = ['#f21111'] if color_dim in label_attr_dict_correlation.values() else None
-    fig = px.scatter(df_plot, x=aspect1, y=aspect2, trendline=trendline, 
+    fig = px.scatter(df_plot, x=aspect1, y=aspect2, trendline=trendline,
                      trendline_color_override='white',
-                     labels={aspect1: aspect1, aspect2: aspect2}, 
+                     labels={aspect1: aspect1, aspect2: aspect2},
                      color=df_plot[color_dim],
                      color_discrete_sequence=color_discrete_sequence)
+    
     fig.update_layout(
         plot_bgcolor='#0e1117',
         paper_bgcolor='#0e1117',
@@ -259,16 +260,20 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
         xaxis=dict(title=dict(text=aspect1)),
         yaxis=dict(title=dict(text=aspect2)),
         showlegend=True,
-
         autosize=True,
+        dragmode='zoom',
+        hovermode='closest',
         width=800,
         height=600
     )
+    
     return fig
 
 
+
+
 # Assuming you have a DataFrame named 'df_data_filtered' with the required data
-df_data_filtered = arr  # Replace ... with your data
+df_data_filtered = arr  
 
 # Mapping of attribute labels to column names
 label_attr_dict_correlation = {
@@ -316,7 +321,7 @@ corr_plot_types = ["Regression Plot (Recommended)", "Standard Scatter Plot"]
 
 row11_spacer1, row11_1, row11_spacer2, row11_2, row11_spacer3 = st.columns((.2, 2.3, .4, 4.4, .2))
 with row11_1:
-    st.markdown("""Investigate the correlation of attributes, but keep in mind correlation does not imply causation. Do Employees that are older get more Monthly Income ?""")
+    st.markdown('Investigate the correlation of attributes, but keep in mind correlation does not imply causation. Do teams that run more than their opponents also score more goals? Do teams that have more shots than their opponents have more corners?')
     corr_type = st.selectbox("What type of correlation plot do you want to see?", corr_plot_types)
     y_axis_aspect2 = st.selectbox("Which attribute do you want on the y-axis?", list(label_attr_dict_correlation.keys()))
     x_axis_aspect1 = st.selectbox("Which attribute do you want on the x-axis?", list(label_attr_dict_correlation.keys()))
@@ -328,96 +333,89 @@ with row11_2:
 
 ###############################################################
 st.sidebar.header('User Input Features ')
-#st.sidebar.markdown("""
-#[Example CSV input file ] (https://drive.google.com/file/d/1oseesGmxCBK8YwO1IkNXIaBbKGfO0Vlz/view?usp=share_link)
-#\n
-#""")
 
-st.sidebar.subheader('Try to change the Features below ⬇⬇⬇')
+st.sidebar.subheader('\nTry to change the Features below ⬇⬇⬇')
 
-uploaded_file = st.file_uploader("Upload your input file", type=["csv"])
-if uploaded_file is not None:
-    input_df = pd.read_csv(uploaded_file)
-else:
-    # Function to handle user input features
-    def user_input_features():
-        
-        BusinessTravel = st.sidebar.selectbox('Business Travel', ('Non-Travel', 'Travel_Rarely', 'Travel_Frequently'))
-        Department = st.sidebar.selectbox('Department', ('Sales', 'Research & Development', 'Human Resources'))
 
-        Education = st.sidebar.selectbox('Education', ('Below College', 'College', 'Bachelor', 'Master', 'Doctor'))
-        EducationField = st.sidebar.selectbox('Education Field', ('Life Sciences', 'Other', 'Medical', 'Marketing', 'Technical Degree', 'Human Resources'))
-        EnvironmentSatisfaction = st.sidebar.selectbox('Environment Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
-        
-        Gender = st.sidebar.selectbox('Gender', ('Female', 'Male'))
-        JobInvolvement = st.sidebar.selectbox('Job Involvement', ('Low', 'Medium', 'High', 'Very High'))
-        JobLevel = st.sidebar.selectbox('Job Level', ('Entry', 'Junior', 'Mid-Level', 'Senior', 'Executive'))
-        
-        JobRole = st.sidebar.selectbox('Job Role', ('Sales Executive', 'Research Scientist', 'Laboratory Technician', 'Manufacturing Director', 'Healthcare Representative', 'Manager', 'Sales Representative', 'Research Director', 'Human Resources'))        
-        JobSatisfaction = st.sidebar.selectbox('Job Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
-        
-        MaritalStatus = st.sidebar.selectbox('Marital Status', ('Single', 'Married', 'Divorced'))
-        OverTime = st.sidebar.selectbox('Over Time', ('Yes', 'No'))
-        PerformanceRating = st.sidebar.selectbox('Performance Rating', ('Excellent', 'Outstanding'))
-        RelationshipSatisfaction = st.sidebar.selectbox('Relationship Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
-        
-        StockOptionLevel = st.sidebar.selectbox('Stock Option Level', ('No stock options granted', 'Stock options granted at a discount', 'Stock options granted at a premium price', 'Stock options granted at market price'))
-
-        Age = st.sidebar.slider('Age', 18, 60, 40)
-        DailyRate = st.sidebar.slider('Daily Rate', 1, 15000, 300)
-        DistanceFromHome = st.sidebar.slider('Distance From Home', 1, 30, 10)
-        EmployeeNumber = st.sidebar.slider('Employee Number', 1, 2000, 50)
-        MonthlyIncome = st.sidebar.slider('Monthly Income', 10, 20000, 500)
-        MonthlyRate = st.sidebar.slider('Monthly Rate', 1, 30000, 15000)
-        NumCompaniesWorked = st.sidebar.slider('Number of Companies Worked', 0, 15, 10)
-        TrainingTimesLastYear = st.sidebar.slider('Training Times Last Year', 0, 10, 3)
-        YearsInCurrentRole = st.sidebar.slider('Years in Current Role', 0, 30, 4)
-        YearsSinceLastPromotion = st.sidebar.slider('Years Since Last Promotion', 0, 15, 4)
-        YearsWithCurrManager = st.sidebar.slider('Years with Current Manager', 0, 12, 4)
-
-        data = {
-            'Age': Age,
-            'DailyRate': DailyRate,
-            'DistanceFromHome': DistanceFromHome,
-            'EmployeeNumber': EmployeeNumber,
-            'MonthlyIncome': MonthlyIncome,
-            'MonthlyRate': MonthlyRate,
-            'NumCompaniesWorked': NumCompaniesWorked,
-            'TrainingTimesLastYear': TrainingTimesLastYear,
-            'YearsInCurrentRole': YearsInCurrentRole,
-            'YearsSinceLastPromotion': YearsSinceLastPromotion,
-            'YearsWithCurrManager': YearsWithCurrManager,
-            'BusinessTravel': BusinessTravel,
-            'Department': Department,
-            'Education': Education,
-            'EducationField': EducationField,
-            'EnvironmentSatisfaction': EnvironmentSatisfaction,
-            'Gender': Gender,
-            'JobInvolvement': JobInvolvement,
-            'EducationField': EducationField,
-            'JobLevel': JobLevel,
-            'JobRole': JobRole,
-            'JobSatisfaction': JobSatisfaction,
-            'MaritalStatus': MaritalStatus,
-            'OverTime': OverTime,
-            'PerformanceRating': PerformanceRating,
-            'RelationshipSatisfaction': RelationshipSatisfaction,
-            'StockOptionLevel': StockOptionLevel,
+        # Function to handle user input features
+def user_input_features():
             
-        }
+            BusinessTravel = st.sidebar.selectbox('Business Travel', ('Non-Travel', 'Travel_Rarely', 'Travel_Frequently'))
+            Department = st.sidebar.selectbox('Department', ('Sales', 'Research & Development', 'Human Resources'))
 
-        features = pd.DataFrame([data], columns=['Age', 'DailyRate', 'DistanceFromHome',
-                                                'EmployeeNumber', 'MonthlyIncome', 'MonthlyRate',
-                                                'NumCompaniesWorked', 'TrainingTimesLastYear', 'YearsInCurrentRole',
-                                                'YearsSinceLastPromotion', 'YearsWithCurrManager', 'BusinessTravel',
-                                                'Department', 'Education', 'EducationField',
-                                                'EnvironmentSatisfaction', 'Gender', 'JobInvolvement',
-                                                'JobLevel', 'JobRole', 'JobSatisfaction', 'MaritalStatus',
-                                                'OverTime', 'PerformanceRating', 'RelationshipSatisfaction',
-                                                'StockOptionLevel'])
+            Education = st.sidebar.selectbox('Education', ('Below College', 'College', 'Bachelor', 'Master', 'Doctor'))
+            EducationField = st.sidebar.selectbox('Education Field', ('Life Sciences', 'Other', 'Medical', 'Marketing', 'Technical Degree', 'Human Resources'))
+            EnvironmentSatisfaction = st.sidebar.selectbox('Environment Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
+            
+            Gender = st.sidebar.selectbox('Gender', ('Female', 'Male'))
+            JobInvolvement = st.sidebar.selectbox('Job Involvement', ('Low', 'Medium', 'High', 'Very High'))
+            JobLevel = st.sidebar.selectbox('Job Level', ('Entry', 'Junior', 'Mid-Level', 'Senior', 'Executive'))
+            
+            JobRole = st.sidebar.selectbox('Job Role', ('Sales Executive', 'Research Scientist', 'Laboratory Technician', 'Manufacturing Director', 'Healthcare Representative', 'Manager', 'Sales Representative', 'Research Director', 'Human Resources'))        
+            JobSatisfaction = st.sidebar.selectbox('Job Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
+            
+            MaritalStatus = st.sidebar.selectbox('Marital Status', ('Single', 'Married', 'Divorced'))
+            OverTime = st.sidebar.selectbox('Over Time', ('Yes', 'No'))
+            PerformanceRating = st.sidebar.selectbox('Performance Rating', ('Excellent', 'Outstanding'))
+            RelationshipSatisfaction = st.sidebar.selectbox('Relationship Satisfaction', ('Low', 'Medium', 'High', 'Very High'))
+            
+            StockOptionLevel = st.sidebar.selectbox('Stock Option Level', ('No stock options granted', 'Stock options granted at a discount', 'Stock options granted at a premium price', 'Stock options granted at market price'))
 
-        return features
-    input_df = user_input_features()
+            Age = st.sidebar.slider('Age', 18, 60, 40)
+            DailyRate = st.sidebar.slider('Daily Rate', 1, 15000, 300)
+            DistanceFromHome = st.sidebar.slider('Distance From Home', 1, 30, 10)
+            EmployeeNumber = st.sidebar.slider('Employee Number', 1, 2000, 50)
+            MonthlyIncome = st.sidebar.slider('Monthly Income', 10, 20000, 500)
+            MonthlyRate = st.sidebar.slider('Monthly Rate', 1, 30000, 15000)
+            NumCompaniesWorked = st.sidebar.slider('Number of Companies Worked', 0, 15, 10)
+            TrainingTimesLastYear = st.sidebar.slider('Training Times Last Year', 0, 10, 3)
+            YearsInCurrentRole = st.sidebar.slider('Years in Current Role', 0, 30, 4)
+            YearsSinceLastPromotion = st.sidebar.slider('Years Since Last Promotion', 0, 15, 4)
+            YearsWithCurrManager = st.sidebar.slider('Years with Current Manager', 0, 12, 4)
+
+            data = {
+                'Age': Age,
+                'DailyRate': DailyRate,
+                'DistanceFromHome': DistanceFromHome,
+                'EmployeeNumber': EmployeeNumber,
+                'MonthlyIncome': MonthlyIncome,
+                'MonthlyRate': MonthlyRate,
+                'NumCompaniesWorked': NumCompaniesWorked,
+                'TrainingTimesLastYear': TrainingTimesLastYear,
+                'YearsInCurrentRole': YearsInCurrentRole,
+                'YearsSinceLastPromotion': YearsSinceLastPromotion,
+                'YearsWithCurrManager': YearsWithCurrManager,
+                'BusinessTravel': BusinessTravel,
+                'Department': Department,
+                'Education': Education,
+                'EducationField': EducationField,
+                'EnvironmentSatisfaction': EnvironmentSatisfaction,
+                'Gender': Gender,
+                'JobInvolvement': JobInvolvement,
+                'EducationField': EducationField,
+                'JobLevel': JobLevel,
+                'JobRole': JobRole,
+                'JobSatisfaction': JobSatisfaction,
+                'MaritalStatus': MaritalStatus,
+                'OverTime': OverTime,
+                'PerformanceRating': PerformanceRating,
+                'RelationshipSatisfaction': RelationshipSatisfaction,
+                'StockOptionLevel': StockOptionLevel,
+                
+            }
+
+            features = pd.DataFrame([data], columns=['Age', 'DailyRate', 'DistanceFromHome',
+                                                    'EmployeeNumber', 'MonthlyIncome', 'MonthlyRate',
+                                                    'NumCompaniesWorked', 'TrainingTimesLastYear', 'YearsInCurrentRole',
+                                                    'YearsSinceLastPromotion', 'YearsWithCurrManager', 'BusinessTravel',
+                                                    'Department', 'Education', 'EducationField',
+                                                    'EnvironmentSatisfaction', 'Gender', 'JobInvolvement',
+                                                    'JobLevel', 'JobRole', 'JobSatisfaction', 'MaritalStatus',
+                                                    'OverTime', 'PerformanceRating', 'RelationshipSatisfaction',
+                                                    'StockOptionLevel'])
+
+            return features
+input_df = user_input_features()
     
 
 
@@ -429,10 +427,9 @@ ibm = ibm_raw.drop(columns=['Attrition', 'Over18', 'EmployeeCount', 'PercentSala
                              'HourlyRate','WorkLifeBalance', 'StandardHours'])
 
 df = pd.concat([input_df, ibm], axis=0)
-no_encode_df=df.copy()
 
 cols_to_encode = ['Education', 'EnvironmentSatisfaction', 'JobInvolvement','JobSatisfaction', 'PerformanceRating', 'RelationshipSatisfaction','JobLevel']
-#encoded_X = df[cols_to_encode]
+encoded_X = df[cols_to_encode]
 
 # create an instance of the OrdinalEncoder
 encoder = OrdinalEncoder()
@@ -446,7 +443,7 @@ encoded_cols = pd.get_dummies(df[cols_to_onehot])
 df_encoded = pd.concat([df, encoded_cols], axis=1)
 df_encoded.drop(cols_to_onehot, axis=1, inplace=True)
 df = df_encoded.iloc[:1]
-no_encode_df=no_encode_df.iloc[:1]
+
 def predict_employee_attrition(df):
     # Load the trained classifier model
     load_clf = pickle.load(open('ibm.pkl', 'rb'))
@@ -455,32 +452,16 @@ def predict_employee_attrition(df):
     prediction_proba = load_clf.predict_proba(df)
     return prediction, prediction_proba
 
-###########################################################
-import base64
 
-def get_download_link(df):
-    # Create a CSV file from the DataFrame
-    csv = df.to_csv(index=False)
-    # Encode the CSV data as base64
-    b64 = base64.b64encode(csv.encode()).decode()
-    # Generate the download link
-    href = f'<a href="data:file/csv;base64,{b64}" download="current_features.csv">Download Current Features</a>'
-    return href
 ####################################################################
 # Display the user input features
 st.subheader('User Input features')
-download_icon = "<i class='fas fa-download'></i>"
-download_link = get_download_link(no_encode_df)
-if uploaded_file is not None:
-    df_input = pd.read_csv(uploaded_file)
-    st.dataframe(df_input.style.highlight_max(color='red', axis=0), use_container_width=True)
-    fig = plt_attribute_correlation(x_axis_aspect1, y_axis_aspect2, color_dim)
-    fig.update_traces(marker=dict(color=df_input[color_dim]), selector=dict(type='scatter'))
-    st.plotly_chart(fig)
-else:
-    st.write('Awaiting CSV file to be uploaded. Currently using example input.')
-    st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_container_width=True)
-#st.markdown(f"{download_icon} 📥({download_link})", unsafe_allow_html=True)
+
+
+st.write('Awaiting CSV file to be uploaded. Currently using example input.')
+st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_container_width=True)
+
+
 
 # Perform prediction using the predict_employee_attrition function
 prediction, prediction_proba = predict_employee_attrition(df)

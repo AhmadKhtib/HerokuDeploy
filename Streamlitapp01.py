@@ -335,7 +335,7 @@ st.sidebar.header('User Input Features ')
 
 st.sidebar.subheader('Try to change the Features below ⬇⬇⬇')
 
-#uploaded_file = st.file_uploader("Upload your input file", type=["csv"])
+uploaded_file = st.file_uploader("Upload your input file", type=["csv"])
 if uploaded_file is not None:
     input_df = pd.read_csv(uploaded_file)
 else:

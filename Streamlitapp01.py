@@ -249,6 +249,7 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
     color_discrete_sequence = ['#f21111'] if color_dim in label_attr_dict_correlation.values() else None
     fig = px.scatter(df_plot, x=aspect1, y=aspect2, trendline=trendline,
                      trendline_color_override='orange',
+                     trendline=dict(line=dict(width=6), band='confidence', bandcolor='rgba(0, 0, 255, 0.2)'),
                      labels={aspect1: aspect1, aspect2: aspect2},
                      color=df_plot[color_dim],
                      color_discrete_sequence=color_discrete_sequence)

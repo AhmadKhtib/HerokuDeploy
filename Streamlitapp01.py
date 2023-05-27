@@ -254,8 +254,8 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
                      color_discrete_sequence=color_discrete_sequence)
     
     fig.update_layout(
-        plot_bgcolor='#808080',
-        paper_bgcolor='#808080',
+        plot_bgcolor='#0e1117',
+        paper_bgcolor='#0e1117',
         font=dict(color='red', size=18),
         xaxis=dict(title=dict(text=aspect1,font=dict(color='red',size=30)),
                    tickfont=dict(color='red')),
@@ -266,7 +266,7 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
         autosize=False,
         dragmode='zoom',
         hovermode='closest',
-        hoverlabel=dict(bgcolor='lime'),
+        #hoverlabel=dict(bgcolor='lime'),
         width=700,
         height=600
     )

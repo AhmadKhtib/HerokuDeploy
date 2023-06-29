@@ -337,7 +337,7 @@ with row11_2:
     st.plotly_chart(fig)
 
 ###############################################################
-st.sidebar.header('User Input Features ')
+st.sidebar.header(' Employe Features ')
 
 st.sidebar.subheader('\nTry to change the Features below ⬇⬇⬇')
 
@@ -463,7 +463,7 @@ def predict_employee_attrition(df):
 st.subheader('User Input features')
 
 
-st.write('Awaiting CSV file to be uploaded. Currently using example input.')
+st.write('Current input.')
 st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_container_width=True)
 
 
@@ -493,7 +493,7 @@ proba_values = prediction_proba[0]
 
 fig = go.Figure(data=[go.Bar(x=labels, y=proba_values, text=proba_values, textposition='auto')])
 fig.update_layout(
-    title_text='Prediction Probabilities',
+    #title_text='Prediction Probabilities',
     xaxis_title='Employee Attrition',
     yaxis_title='Probability',
     font=dict(size=18)  # Set the font size for the text on the chart

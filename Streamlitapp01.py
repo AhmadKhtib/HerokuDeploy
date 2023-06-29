@@ -29,9 +29,7 @@ with see_data:
     st.dataframe(data=arr.reset_index(drop=True))
 #########################################################
 # Create an Altair # Set the color scheme
-color_scheme = 'orange'  # You can customize the color scheme as needed
-
-# Create the chart
+color_scheme = 'orange'  
 chart = alt.Chart(arr).mark_bar(color=color_scheme).encode(
     x=alt.X('Age:Q'),
     y='count()',
@@ -41,42 +39,24 @@ chart = alt.Chart(arr).mark_bar(color=color_scheme).encode(
     height=400,
     title='Distribution of employees Ages'
 ).interactive()
-
-# Display the chart using Streamlit
 st.altair_chart(chart)
 ##############################################
-# Create the histogram using Plotly Express with custom bar colors
 fig = px.histogram(arr, x="Attrition", category_orders=dict(Gender=["Male", "Female"]), color='Gender',
                    title='Attrition and Gender', color_discrete_map={'Male': 'blue', 'Female': 'orange'})
-
-# Display the histogram using Streamlit
 st.plotly_chart(fig)
 ################################################
-# Set the title
 st.title('Employees Number vs Monthly Income')
-
-# Create a scatter plot of EmployeeNumber vs MonthlyIncome
 fig = px.scatter(arr, x='EmployeeNumber', y='MonthlyIncome')
-
-# Set the axis labels
 fig.update_xaxes(title='Employee Number')
 fig.update_yaxes(title='Monthly Income')
 
 fig.update_traces(marker=dict(color='red'))
-
-# Enable zoom functionality
 fig.update_layout(
     dragmode='zoom',
     hovermode='closest'
 )
-
-# Add a slider to adjust point size
 point_size = st.slider('Point Size', min_value=1, max_value=10, value=5, step=1)
-
-# Update the marker size
 fig.update_traces(marker=dict(size=point_size))
-
-# Display the scatter plot using Streamlit
 st.plotly_chart(fig)
 ###############################################
 
@@ -93,23 +73,18 @@ fig = px.scatter(
 
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
-    # Use the Streamlit theme.
-    # This is the default. So you can also omit the theme argument.
+    
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 with tab2:
-    # Use the native Plotly theme.
     st.plotly_chart(fig, theme=None, use_container_width=True)
 
 ###############################################################
 
 # Count the values in the 'JobSatisfaction' column
 satisfaction_counts = arr['JobSatisfaction'].value_counts()
-# Count the values in the 'MaritalStatus' column
 marital_status_counts = arr['MaritalStatus'].value_counts()
-# Count the values in the 'JobLevel' column
 job_level_counts = arr['JobLevel'].value_counts()
 PerformanceRating_counts = arr['PerformanceRating'].value_counts()
-# Count the values in the 'Gender' column
 gender_counts = arr['Gender'].value_counts()
 RelationshipSatisfaction_counts = arr['RelationshipSatisfaction'].value_counts()
 WorkLifeBalance_counts = arr['WorkLifeBalance'].value_counts()
@@ -119,15 +94,13 @@ Department_counts = arr['Department'].value_counts()
 EducationField_counts = arr['EducationField'].value_counts()
 BusinessTravel_counts = arr['BusinessTravel'].value_counts()
 
-# Create a list of chart types to be used for each subplot
 chart_types = ['bar', 'pie', 'pie', 'pie', 'bar', 'pie', 'pie', 'bar', 'pie', 'pie', 'pie', 'bar']
 
-# Set the title of the page
-st.title('Employee Attrition Dashboard')
+st.title('Employees Attrition Dashboard')
 
 
 
-# Create the subplots using Streamlit
+# Create the subplots 
 cols_G01 = st.columns(2)
 
 with cols_G01[0]:
@@ -229,7 +202,6 @@ def get_chart():
     # Create distplot with curve_type set to 'normal'
     fig = ff.create_distplot(hist_data, group_labels, colors=colors, bin_size=100, show_rug=False)
 
-    # Add title
     fig.update_layout(title_text='Hist and Curve Plot')
 
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
@@ -276,8 +248,6 @@ def plt_attribute_correlation(aspect1, aspect2, color_dim):
 
 
 
-
-# Assuming you have a DataFrame named 'df_data_filtered' with the required data
 df_data_filtered = arr  
 
 # Mapping of attribute labels to column names
@@ -436,10 +406,7 @@ df = pd.concat([input_df, ibm], axis=0)
 cols_to_encode = ['Education', 'EnvironmentSatisfaction', 'JobInvolvement','JobSatisfaction', 'PerformanceRating', 'RelationshipSatisfaction','JobLevel']
 encoded_X = df[cols_to_encode]
 
-# create an instance of the OrdinalEncoder
 encoder = OrdinalEncoder()
-
-# fit the encoder to the data
 encoder.fit(df[cols_to_encode])
 df[cols_to_encode] = encoder.transform(df[cols_to_encode])
 
@@ -450,16 +417,14 @@ df_encoded.drop(cols_to_onehot, axis=1, inplace=True)
 df = df_encoded.iloc[:1]
 
 def predict_employee_attrition(df):
-    # Load the trained classifier model
     load_clf = pickle.load(open('ibm.pkl', 'rb'))
-    # Make predictions
     prediction = load_clf.predict(df)
     prediction_proba = load_clf.predict_proba(df)
     return prediction, prediction_proba
 
 
 ####################################################################
-# Display the user input features
+# Display user input features
 st.subheader('User Input features')
 
 
@@ -472,7 +437,7 @@ st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_contain
 prediction, prediction_proba = predict_employee_attrition(df)
 
 
-# Display the prediction result
+# prediction result
 st.write("""
 ## 
 
@@ -484,7 +449,7 @@ emp_att = np.array(['No', 'Yes'])
 st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='red',axis=0),height=10,use_container_width=True)
 
 
-# Display the prediction probabilities on a bar chart
+# prediction probabilities on a bar chart
 st.subheader('**Prediction Probabilities**')
 labels = ['No', 'Yes']
 
@@ -502,12 +467,10 @@ fig.update_layout(
 fig.update_traces(texttemplate='%{text:.2f}', textfont_size=20)  # Set the font size for the bar labels
 
 st.plotly_chart(fig, use_container_width=False)
-
-
-# Create a DataFrame from the prediction probabilities
+#   DataFrame from the prediction probabilities
 proba_df = pd.DataFrame(prediction_proba, columns=['No', 'Yes'])
 
-# Format the DataFrame cells to display two decimal places
+# Format cells to display two decimal places
 proba_df_formatted = proba_df.applymap('{:.2f}'.format)
 
 # Apply CSS styling to the DataFrame
@@ -515,7 +478,6 @@ proba_df_styled = proba_df_formatted.style\
     .set_properties(subset=pd.IndexSlice[:, :],
                     **{'background-color': 'White'})
 
-# Display the styled DataFrame
 #st.dataframe(proba_df_styled, height=10, use_container_width=True)
 #st.write(prediction_proba)
 st.dataframe(proba_df_formatted.style.highlight_max(color='red',axis=0),height=10,use_container_width=True)

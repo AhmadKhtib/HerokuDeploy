@@ -39,7 +39,7 @@ chart = alt.Chart(arr).mark_bar(color=color_scheme).encode(
 ).properties(
     width=600,
     height=400,
-    title='Distribution of Employee Ages'
+    title='Distribution of employees Ages'
 ).interactive()
 
 # Display the chart using Streamlit
@@ -53,7 +53,7 @@ fig = px.histogram(arr, x="Attrition", category_orders=dict(Gender=["Male", "Fem
 st.plotly_chart(fig)
 ################################################
 # Set the title
-st.title('Employee Number vs Monthly Income')
+st.title('Employees Number vs Monthly Income')
 
 # Create a scatter plot of EmployeeNumber vs MonthlyIncome
 fig = px.scatter(arr, x='EmployeeNumber', y='MonthlyIncome')

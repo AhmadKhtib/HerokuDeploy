@@ -23,7 +23,7 @@ arr = pd.read_csv('WA_Fn-UseC_-HR-Employee-Attrition.csv')
 
 #############################################################################
 st.markdown("")
-see_data = st.expander('Click here to see the raw data ⬇⬇')
+see_data = st.expander('Click here to see the raw data 👇')
 with see_data:
     st.dataframe(data=arr.reset_index(drop=True))
 #########################################################
@@ -201,7 +201,7 @@ def get_chart():
     # Create distplot with curve_type set to 'normal'
     fig = ff.create_distplot(hist_data, group_labels, colors=colors, bin_size=100, show_rug=False)
 
-    fig.update_layout(title_text='Hist and Curve Plot')
+    fig.update_layout(title_text='Distribution of Monthly Income and Employees Number')
 
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
     with tab1:

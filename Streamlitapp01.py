@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pickle
 import streamlit as st
-from PIL import Image
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import OrdinalEncoder
 import matplotlib.pyplot as plt
@@ -16,7 +15,7 @@ st.set_page_config(page_title='IBM Employee Attrition', page_icon='👨‍💻�
 st.title('IBM Employee Attrition App')
 
 st.write(""" 
-    App Developed by [Ahmad Alkhatib](https://www.linkedin.com/in/ahmad-ihab-alkhatib/) \n
+    App Developed by [Ahmad Alkhateeb](https://www.linkedin.com/in/ahmad-ihab-alkhatib/) \n
 This app predicts the **Employee Attrition**
 
 """)
@@ -24,7 +23,7 @@ arr = pd.read_csv('WA_Fn-UseC_-HR-Employee-Attrition.csv')
 
 #############################################################################
 st.markdown("")
-see_data = st.expander('You can click here to see the raw data first 👉')
+see_data = st.expander('Click here to see the raw data ⬇⬇')
 with see_data:
     st.dataframe(data=arr.reset_index(drop=True))
 #########################################################
@@ -100,7 +99,7 @@ st.title('Employees Attrition Dashboard')
 
 
 
-# Create the subplots 
+# subplots 
 cols_G01 = st.columns(2)
 
 with cols_G01[0]:
@@ -307,9 +306,8 @@ with row11_2:
     st.plotly_chart(fig)
 
 ###############################################################
-st.sidebar.header(' Employe Features ')
-
-st.sidebar.subheader('\nTry to change the Features below ⬇⬇⬇')
+st.sidebar.header(' Employee Features ')
+st.sidebar.subheader('\nTry to change the Features below to see what the model will predict . ⬇⬇⬇')
 
 
         # Function to handle user input features
@@ -425,35 +423,30 @@ def predict_employee_attrition(df):
 
 ####################################################################
 # Display user input features
-st.subheader('User Input features')
+st.subheader('Current input')
 
 
-st.write('Current input.')
+#st.write('Current input.')
 st.dataframe(df.style.highlight_max(color='red', axis=0), height=10, use_container_width=True)
 
-
-
-# Perform prediction using the predict_employee_attrition function
+# prediction using predict_employee_attrition function
 prediction, prediction_proba = predict_employee_attrition(df)
-
-
 # prediction result
 st.write("""
 ## 
 
 """)
-st.subheader('**Prediction**')
+st.header('**Prediction**')
+st.subheader('**Note :** Try to change the Features on sidebar **On the left ** to see the value ⬇⬇ below changes  ')
+
 emp_att = np.array(['No', 'Yes'])
 
 #st.write( emp_att[prediction])
 st.dataframe(pd.DataFrame(emp_att[prediction]).style.highlight_max(color='red',axis=0),height=10,use_container_width=True)
 
-
 # prediction probabilities on a bar chart
 st.subheader('**Prediction Probabilities**')
 labels = ['No', 'Yes']
-
-
 proba_values = prediction_proba[0]
 
 fig = go.Figure(data=[go.Bar(x=labels, y=proba_values, text=proba_values, textposition='auto')])
@@ -467,10 +460,9 @@ fig.update_layout(
 fig.update_traces(texttemplate='%{text:.2f}', textfont_size=20)  # Set the font size for the bar labels
 
 st.plotly_chart(fig, use_container_width=False)
-#   DataFrame from the prediction probabilities
+# DataFrame from the prediction probabilities
 proba_df = pd.DataFrame(prediction_proba, columns=['No', 'Yes'])
 
-# Format cells to display two decimal places
 proba_df_formatted = proba_df.applymap('{:.2f}'.format)
 
 # Apply CSS styling to the DataFrame

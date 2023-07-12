@@ -437,7 +437,7 @@ st.write("""
 
 """)
 st.header('**Prediction**')
-st.subheader('**Note :** Try to change the Features on sidebar **On the left ** to see the value ⬇⬇ below changes  ')
+st.subheader('**Note :** Try to change the Features on the sidebar **On the left ** to see the value ⬇⬇ below changes  ')
 
 emp_att = np.array(['No', 'Yes'])
 

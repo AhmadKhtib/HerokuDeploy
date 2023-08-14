@@ -1,8 +1,8 @@
-pandas
-numpy
-streamlit
+pandas==2.0.2
+numpy==1.25.0
+streamlit==1.24.0
 scikit-learn==1.2.2
-matplotlib
-altair
-plotly
-statsmodels
+matplotlib==3.7.2
+altair==5.0.1
+plotly==2.16.1
+statsmodels==0.14.0
